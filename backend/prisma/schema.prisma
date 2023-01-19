@@ -18,7 +18,30 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   password  String
+  products  Product[]
 }
+
+model Product{
+  id          Int     @id @default(autoincrement())
+  name        String
+  description String
+  photo       String?
+  category    String
+  subCategory String?
+  User        User     @relation( fields: [userId] ,references: [id])
+  userId      Int
+  price       Price?
+  slug        String       
+}
+
+model Price{
+    vatPrice    Float
+    basePrice   Float
+    product     Product   @relation(fields: [productId] , references: [id])
+    productId   Int       @unique
+}
+
+
 
 enum ROLE {
   USER

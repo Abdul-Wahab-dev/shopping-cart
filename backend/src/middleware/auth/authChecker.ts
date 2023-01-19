@@ -35,10 +35,7 @@ export const authChecker: AuthChecker<Context> = async ({ context }) => {
     return false;
   }
   // 2) verify token
-  const decode: decodedType = (await verify(
-    token,
-    "HELLO_WORLD"
-  )) as decodedType;
+  const decode: decodedType = verify(token, "HELLO_WORLD") as decodedType;
   // 3) check user still exist in db
   const currentUser = await prisma.user.findUnique({
     where: {

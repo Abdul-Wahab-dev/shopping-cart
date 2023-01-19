@@ -3,12 +3,6 @@
 # !!!   DO NOT MODIFY THIS FILE BY YOURSELF   !!!
 # -----------------------------------------------
 
-type Book {
-  id: String!
-  name: String!
-  price: Float!
-}
-
 """
 The javascript `Date` as string. Type represents date and time as the ISO Date string.
 """
@@ -20,9 +14,11 @@ input LoginInput {
 }
 
 type Mutation {
+  addProduct(input: ProductInput!): Product!
   addUser(input: userInput!): User!
   login(input: LoginInput!): String!
   registerUser(input: userInput!): User!
+  updateProduct(input: ProductInput!): Product!
 }
 
 type Post {
@@ -35,9 +31,35 @@ type Post {
   updatedAt: DateTime!
 }
 
+type Price {
+  basePrice: Float!
+  vatPrice: Float!
+}
+
+type Product {
+  User: User!
+  category: String!
+  description: String!
+  id: Float
+  name: String!
+  price: Price!
+  subCategory: String!
+}
+
+input ProductInput {
+  basePrice: Float!
+  category: String!
+  description: String!
+  id: Float
+  name: String!
+  subCategory: String
+  vatPrice: Float!
+}
+
 type Query {
+  getProductById(id: Float!): Product!
+  getProducts: [Product!]!
   getUsers: UserResponse!
-  hello(id: String!, name: String!, price: Float!): Book!
 }
 
 enum ROLE {
