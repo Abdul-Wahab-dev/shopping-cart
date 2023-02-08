@@ -1,3 +1,29 @@
 {
-  "extends": "next/core-web-vitals"
+  "env": {
+    "browser": true,
+    "es2021": true
+  },
+  "extends": ["plugin:react/recommended", "standard-with-typescript"],
+  "overrides": [],
+  "parserOptions": {
+    "ecmaVersion": "latest",
+    "sourceType": "module",
+    "ecmaFeatures": {
+      "jsx": true
+    },
+    "project": "./tsconfig.json"
+  },
+  "plugins": ["react"],
+  "ignorePatterns": ["**/node_modules/**", "next-env.d.ts", "next.config.js"],
+  "rules": {
+    "@typescript-eslint/triple-slash-reference": ["warn"],
+    "@typescript-eslint/explicit-function-return-type": "off",
+    "react/react-in-jsx-scope": "off",
+    "@typescript-eslint/space-before-function-paren": "off",
+    "@typescript-eslint/quotes": "off",
+    "@typescript-eslint/member-delimiter-style": "off",
+    " @typescript-eslint/comma-dangle": ["off"],
+    "@typescript-eslint/semi": "off",
+    "@typescript-eslint/consistent-type-definitions": "off"
+  }
 }
