@@ -20,9 +20,11 @@ input LoginInput {
 }
 
 type Mutation {
+  addProduct(input: productInput!): Product!
   addUser(input: userInput!): User!
   login(input: LoginInput!): String!
   registerUser(input: userInput!): User!
+  updateProduct(input: productInput!): Product!
 }
 
 type Post {
@@ -35,7 +37,22 @@ type Post {
   updatedAt: DateTime!
 }
 
+type Product {
+  category: String!
+  description: String!
+  id: Float!
+  name: String!
+  price: Float!
+  user: User
+}
+
+type ProductResponse {
+  products: [Product!]!
+  total: Float!
+}
+
 type Query {
+  getProducts: ProductResponse!
   getUsers: UserResponse!
   hello(id: String!, name: String!, price: Float!): Book!
 }
@@ -58,6 +75,15 @@ type User {
 type UserResponse {
   total: Float!
   users: [User!]!
+}
+
+input productInput {
+  category: String!
+  description: String!
+  id: Float
+  image: String!
+  name: String!
+  price: Float!
 }
 
 input userInput {

@@ -4,12 +4,15 @@ import { ApolloServer } from "apollo-server-express";
 import "reflect-metadata";
 import { BookResolver } from "./resolvers/BookResolver";
 import { UserResolver } from "./resolvers/UserResolver";
+import { ProductResolver } from "./resolvers/ProductResolver";
 import * as path from "path";
 import { authChecker } from "./middleware/auth/authChecker";
+import { config } from "dotenv";
+config({ path: "../.env" });
 const main = async () => {
   // build SDL
   const schema = await buildSchema({
-    resolvers: [BookResolver, UserResolver],
+    resolvers: [BookResolver, UserResolver, ProductResolver],
     validate: false,
     emitSchemaFile: path.resolve(__dirname, "schema.gql"),
     authChecker: authChecker,
