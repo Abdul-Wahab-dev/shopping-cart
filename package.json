@@ -24,6 +24,6 @@
     "husky": "^8.0.0"
   },
   "lint-staged": {
-    "*": "prettier --ignore-unknow --write"
+    "*": "prettier --ignore-unknown --write"
   }
 }
