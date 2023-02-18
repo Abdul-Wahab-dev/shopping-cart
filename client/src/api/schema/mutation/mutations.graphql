@@ -1,0 +1,86 @@
+# this is an auto generated file. This will be overwritten
+mutation AddProduct($input: productInput!) {
+  addProduct(input: $input) {
+    category
+    description
+    id
+    name
+    price
+    user {
+      email
+      id
+      name
+      posts {
+        authorId
+        content
+        createdAt
+        id
+        published
+        title
+        updatedAt
+      }
+      role
+    }
+  }
+}
+mutation AddUser($input: userInput!) {
+  addUser(input: $input) {
+    email
+    id
+    name
+    posts {
+      authorId
+      content
+      createdAt
+      id
+      published
+      title
+      updatedAt
+    }
+    role
+  }
+}
+mutation Login($input: LoginInput!) {
+  login(input: $input)
+}
+mutation RegisterUser($input: userInput!) {
+  registerUser(input: $input) {
+    email
+    id
+    name
+    posts {
+      authorId
+      content
+      createdAt
+      id
+      published
+      title
+      updatedAt
+    }
+    role
+  }
+}
+mutation UpdateProduct($input: productInput!) {
+  updateProduct(input: $input) {
+    category
+    description
+    id
+    name
+    price
+    user {
+      email
+      id
+      name
+      posts {
+        authorId
+        content
+        createdAt
+        id
+        published
+        title
+        updatedAt
+      }
+      role
+    }
+  }
+}

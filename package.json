@@ -6,7 +6,7 @@
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1",
     "prepare": "husky install",
-    "codegen": "./codegen.sh"
+    "generate": "cd backend && npx amplify-graphql-docs-generator --schema src/schema.gql --output src/graphql/ --language graphql --separateFiles true --maxDepth 6"
   },
   "repository": {
     "type": "git",
