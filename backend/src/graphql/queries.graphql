@@ -1,0 +1,55 @@
+# this is an auto generated file. This will be overwritten
+query GetProducts {
+  getProducts {
+    products {
+      category
+      description
+      id
+      name
+      price
+      user {
+        email
+        id
+        name
+        posts {
+          authorId
+          content
+          createdAt
+          id
+          published
+          title
+          updatedAt
+        }
+        role
+      }
+    }
+    total
+  }
+}
+query GetUsers {
+  getUsers {
+    total
+    users {
+      email
+      id
+      name
+      posts {
+        authorId
+        content
+        createdAt
+        id
+        published
+        title
+        updatedAt
+      }
+      role
+    }
+  }
+}
+query Hello($id: String!, $name: String!, $price: Float!) {
+  hello(id: $id, name: $name, price: $price) {
+    id
+    name
+    price
+  }
+}

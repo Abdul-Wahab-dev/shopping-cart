@@ -1,0 +1,30 @@
+{
+  "name": "shopping-cart",
+  "version": "1.0.0",
+  "description": "",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "prepare": "husky install",
+    "generate": "cd backend && npx amplify-graphql-docs-generator --schema src/schema.gql --output src/graphql/ --language graphql --separateFiles true --maxDepth 6"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Abdul-Wahab-dev/shopping-cart.git"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/Abdul-Wahab-dev/shopping-cart/issues"
+  },
+  "homepage": "https://github.com/Abdul-Wahab-dev/shopping-cart#readme",
+  "devDependencies": {
+    "lint-staged": "^13.1.1",
+    "prettier": "^2.8.4",
+    "husky": "^8.0.0"
+  },
+  "lint-staged": {
+    "*": "prettier --ignore-unknown --write"
+  }
+}
