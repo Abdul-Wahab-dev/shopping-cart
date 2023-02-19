@@ -1,4 +1,7 @@
 # this is an auto generated file. This will be overwritten
+query Checkout {
+  checkout
+}
 query GetProducts {
   getProducts {
     products {

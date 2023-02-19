@@ -52,6 +52,7 @@ type ProductResponse {
 }
 
 type Query {
+  checkout: String!
   getProducts: ProductResponse!
   getUsers: UserResponse!
   hello(id: String!, name: String!, price: Float!): Book!
