@@ -3,6 +3,10 @@ import * as Types from "../../../types";
 import { gql } from "@apollo/client";
 import * as Apollo from "@apollo/client";
 const defaultOptions = {} as const;
+export type CheckoutQueryVariables = Types.Exact<{ [key: string]: never }>;
+
+export type CheckoutQuery = { __typename?: "Query"; checkout: string };
+
 export type GetProductsQueryVariables = Types.Exact<{ [key: string]: never }>;
 
 export type GetProductsQuery = {
@@ -76,6 +80,56 @@ export type HelloQuery = {
   hello: { __typename?: "Book"; id: string; name: string; price: number };
 };
 
+export const CheckoutDocument = gql`
+  query Checkout {
+    checkout
+  }
+`;
+
+/**
+ * __useCheckoutQuery__
+ *
+ * To run a query within a React component, call `useCheckoutQuery` and pass it any options that fit your needs.
+ * When your component renders, `useCheckoutQuery` returns an object from Apollo Client that contains loading, error, and data properties
+ * you can use to render your UI.
+ *
+ * @param baseOptions options that will be passed into the query, supported options are listed on: https://www.apollographql.com/docs/react/api/react-hooks/#options;
+ *
+ * @example
+ * const { data, loading, error } = useCheckoutQuery({
+ *   variables: {
+ *   },
+ * });
+ */
+export function useCheckoutQuery(
+  baseOptions?: Apollo.QueryHookOptions<CheckoutQuery, CheckoutQueryVariables>,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useQuery<CheckoutQuery, CheckoutQueryVariables>(
+    CheckoutDocument,
+    options,
+  );
+}
+export function useCheckoutLazyQuery(
+  baseOptions?: Apollo.LazyQueryHookOptions<
+    CheckoutQuery,
+    CheckoutQueryVariables
+  >,
+) {
+  const options = { ...defaultOptions, ...baseOptions };
+  return Apollo.useLazyQuery<CheckoutQuery, CheckoutQueryVariables>(
+    CheckoutDocument,
+    options,
+  );
+}
+export type CheckoutQueryHookResult = ReturnType<typeof useCheckoutQuery>;
+export type CheckoutLazyQueryHookResult = ReturnType<
+  typeof useCheckoutLazyQuery
+>;
+export type CheckoutQueryResult = Apollo.QueryResult<
+  CheckoutQuery,
+  CheckoutQueryVariables
+>;
 export const GetProductsDocument = gql`
   query GetProducts {
     getProducts {

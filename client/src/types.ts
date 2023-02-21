@@ -89,6 +89,7 @@ export type ProductResponse = {
 
 export type Query = {
   __typename?: "Query";
+  checkout: Scalars["String"];
   getProducts: ProductResponse;
   getUsers: UserResponse;
   hello: Book;
