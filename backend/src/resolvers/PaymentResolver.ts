@@ -1,4 +1,4 @@
-import { Resolver, Query } from "type-graphql";
+import { Resolver, Mutation } from "type-graphql";
 import Stripe from "stripe";
 const stripe = new Stripe(
   "sk_test_51Md4qEBP7VrxYAkm6VP0sQHd8fQ0PXFhbD4QTwmJFEBSBRRpkbI7gNJK0LWY1FfHylYiEsojkOPycfgGdKdAXDR000jaCtvkKN",
@@ -10,7 +10,7 @@ const stripe = new Stripe(
 const DOMAIN = "http://localhost:3000/";
 Resolver();
 export class PaymentResolver {
-  @Query(() => String)
+  @Mutation(() => String)
   async checkout(): Promise<string> {
     const session = await stripe.checkout.sessions.create({
       line_items: [
@@ -26,7 +26,7 @@ export class PaymentResolver {
         },
       ],
       mode: "payment",
-      success_url: `${DOMAIN}thanks`,
+      success_url: `${DOMAIN}payment`,
     });
     return session.url;
   }

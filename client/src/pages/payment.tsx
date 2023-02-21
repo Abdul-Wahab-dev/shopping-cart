@@ -1,13 +1,17 @@
-import { useHelloQuery } from "../api/schema/queries/queries.generated";
+import { useCheckoutMutation } from "../api/schema/mutation/mutations.generated";
 export default function Payment() {
-  const { data } = useHelloQuery({
-    variables: {
-      id: "1",
-      name: "hello",
-      price: 200,
-    },
-  });
+  const [checkoutMutation, { data }] = useCheckoutMutation();
+  const checkout = () => {
+    checkoutMutation();
+  };
+  if (data) {
+    window.open(data?.checkout, "_self");
+  }
 
-  console.log(data, "data");
-  return <h1>Hello payment</h1>;
+  return (
+    <div>
+      <h1>Checkout Payment</h1>
+      <button onClick={checkout}>Checkout</button>
+    </div>
+  );
 }
