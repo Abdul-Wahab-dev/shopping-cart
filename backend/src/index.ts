@@ -4,7 +4,7 @@ import { ApolloServer } from "apollo-server-express";
 import "reflect-metadata";
 import { BookResolver } from "./resolvers/BookResolver";
 import { UserResolver } from "./resolvers/UserResolver";
-import { ProductResolver } from "./resolvers/ProductResolver";
+// import { ProductResolver } from "./resolvers/ProductResolver";
 import { PaymentResolver } from "./resolvers/PaymentResolver";
 import * as path from "path";
 import { authChecker } from "./middleware/auth/authChecker";
@@ -13,7 +13,12 @@ config({ path: "../.env" });
 const main = async () => {
   // build SDL
   const schema = await buildSchema({
-    resolvers: [BookResolver, UserResolver, ProductResolver, PaymentResolver],
+    resolvers: [
+      BookResolver,
+      UserResolver,
+      // ProductResolver,
+      PaymentResolver,
+    ],
     validate: false,
     emitSchemaFile: path.resolve(__dirname, "schema.gql"),
     authChecker: authChecker,

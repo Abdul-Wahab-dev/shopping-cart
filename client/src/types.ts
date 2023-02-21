@@ -33,15 +33,10 @@ export type LoginInput = {
 
 export type Mutation = {
   __typename?: "Mutation";
-  addProduct: Product;
   addUser: User;
+  checkout: Scalars["String"];
   login: Scalars["String"];
   registerUser: User;
-  updateProduct: Product;
-};
-
-export type MutationAddProductArgs = {
-  input: ProductInput;
 };
 
 export type MutationAddUserArgs = {
@@ -56,10 +51,6 @@ export type MutationRegisterUserArgs = {
   input: UserInput;
 };
 
-export type MutationUpdateProductArgs = {
-  input: ProductInput;
-};
-
 export type Post = {
   __typename?: "Post";
   authorId: Scalars["Float"];
@@ -71,26 +62,8 @@ export type Post = {
   updatedAt: Scalars["DateTime"];
 };
 
-export type Product = {
-  __typename?: "Product";
-  category: Scalars["String"];
-  description: Scalars["String"];
-  id: Scalars["Float"];
-  name: Scalars["String"];
-  price: Scalars["Float"];
-  user?: Maybe<User>;
-};
-
-export type ProductResponse = {
-  __typename?: "ProductResponse";
-  products: Array<Product>;
-  total: Scalars["Float"];
-};
-
 export type Query = {
   __typename?: "Query";
-  checkout: Scalars["String"];
-  getProducts: ProductResponse;
   getUsers: UserResponse;
   hello: Book;
 };
@@ -121,15 +94,6 @@ export type UserResponse = {
   __typename?: "UserResponse";
   total: Scalars["Float"];
   users: Array<User>;
-};
-
-export type ProductInput = {
-  category: Scalars["String"];
-  description: Scalars["String"];
-  id?: InputMaybe<Scalars["Float"]>;
-  image: Scalars["String"];
-  name: Scalars["String"];
-  price: Scalars["Float"];
 };
 
 export type UserInput = {
