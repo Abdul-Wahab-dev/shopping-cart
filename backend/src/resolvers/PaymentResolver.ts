@@ -30,4 +30,16 @@ export class PaymentResolver {
     });
     return session.url;
   }
+
+  @Mutation(() => String)
+  async initializePayment(): Promise<string> {
+    const paymentIntient = await stripe.paymentIntents.create({
+      amount: 2000,
+      currency: "usd",
+      automatic_payment_methods: {
+        enabled: true,
+      },
+    });
+    return paymentIntient.client_secret;
+  }
 }
