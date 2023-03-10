@@ -22,8 +22,18 @@ input LoginInput {
 type Mutation {
   addUser(input: userInput!): User!
   checkout: String!
+  createCustomer(email: String!): String!
+  createPrice(input: priceInput!): String!
+  createProduct(name: String!): String!
+  createSubscription(input: subscriptionInput!): String!
+  initializePayment(input: PaymentIntentInput!): String!
   login(input: LoginInput!): String!
   registerUser(input: userInput!): User!
+}
+
+input PaymentIntentInput {
+  amount: Float!
+  currency: String!
 }
 
 type Post {
@@ -59,6 +69,18 @@ type User {
 type UserResponse {
   total: Float!
   users: [User!]!
+}
+
+input priceInput {
+  amount: Float!
+  currency: String!
+  interval: String!
+  productId: String!
+}
+
+input subscriptionInput {
+  customerId: String!
+  priceId: String!
 }
 
 input userInput {

@@ -18,6 +18,7 @@ model User {
   createdAt DateTime @default(now())
   updatedAt DateTime @updatedAt
   password  String
+  customerId String?
   product   Product[]
 }
 
