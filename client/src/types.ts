@@ -35,6 +35,11 @@ export type Mutation = {
   __typename?: "Mutation";
   addUser: User;
   checkout: Scalars["String"];
+  createCustomer: Scalars["String"];
+  createPrice: Scalars["String"];
+  createProduct: Scalars["String"];
+  createSubscription: Scalars["String"];
+  initializePayment: Scalars["String"];
   login: Scalars["String"];
   registerUser: User;
 };
@@ -43,12 +48,37 @@ export type MutationAddUserArgs = {
   input: UserInput;
 };
 
+export type MutationCreateCustomerArgs = {
+  email: Scalars["String"];
+};
+
+export type MutationCreatePriceArgs = {
+  input: PriceInput;
+};
+
+export type MutationCreateProductArgs = {
+  name: Scalars["String"];
+};
+
+export type MutationCreateSubscriptionArgs = {
+  input: SubscriptionInput;
+};
+
+export type MutationInitializePaymentArgs = {
+  input: PaymentIntentInput;
+};
+
 export type MutationLoginArgs = {
   input: LoginInput;
 };
 
 export type MutationRegisterUserArgs = {
   input: UserInput;
+};
+
+export type PaymentIntentInput = {
+  amount: Scalars["Float"];
+  currency: Scalars["String"];
 };
 
 export type Post = {
@@ -94,6 +124,18 @@ export type UserResponse = {
   __typename?: "UserResponse";
   total: Scalars["Float"];
   users: Array<User>;
+};
+
+export type PriceInput = {
+  amount: Scalars["Float"];
+  currency: Scalars["String"];
+  interval: Scalars["String"];
+  productId: Scalars["String"];
+};
+
+export type SubscriptionInput = {
+  customerId: Scalars["String"];
+  priceId: Scalars["String"];
 };
 
 export type UserInput = {

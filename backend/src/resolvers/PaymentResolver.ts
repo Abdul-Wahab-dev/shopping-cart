@@ -1,5 +1,9 @@
 import { Resolver, Mutation, Arg, Args } from "type-graphql";
 import Stripe from "stripe";
+import { priceInput } from "../inputs/PriceInput";
+import { subscriptionInput } from "../inputs/SubscriptionInput";
+import { PaymentIntentInput } from "../inputs/PaymentIntentInput";
+type Interval = "day" | "month" | "week" | "year";
 const stripe = new Stripe(
   "sk_test_51Md4qEBP7VrxYAkm6VP0sQHd8fQ0PXFhbD4QTwmJFEBSBRRpkbI7gNJK0LWY1FfHylYiEsojkOPycfgGdKdAXDR000jaCtvkKN",
   {
@@ -32,10 +36,12 @@ export class PaymentResolver {
   }
 
   @Mutation(() => String)
-  async initializePayment(): Promise<string> {
+  async initializePayment(
+    @Arg("input") input: PaymentIntentInput,
+  ): Promise<string> {
     const paymentIntient = await stripe.paymentIntents.create({
-      amount: 2000,
-      currency: "usd",
+      amount: input.amount,
+      currency: input.currency,
       automatic_payment_methods: {
         enabled: true,
       },
@@ -54,18 +60,14 @@ export class PaymentResolver {
   @Mutation(() => String)
   async createPrice(
     @Arg("input")
-    input: {
-      amount: number;
-      productId: string;
-      interval: string;
-    },
+    input: priceInput,
   ): Promise<string> {
     const newPrice = await stripe.prices.create({
       product: input.productId,
       unit_amount: input.amount,
       currency: "usd",
       recurring: {
-        interval: input.interval,
+        interval: input.interval as Interval,
       },
     });
     return newPrice.id;
@@ -73,7 +75,7 @@ export class PaymentResolver {
 
   @Mutation(() => String)
   async createSubscription(
-    @Arg("input") input: { customerId: string; priceId: string },
+    @Arg("input") input: subscriptionInput,
   ): Promise<string> {
     const newSubscription = await stripe.subscriptions.create({
       customer: input.customerId,
@@ -89,5 +91,13 @@ export class PaymentResolver {
     });
 
     return "";
+  }
+
+  @Mutation(() => String)
+  async createCustomer(@Arg("email") email: string): Promise<string> {
+    const newCustomer = await stripe.customers.create({
+      email,
+    });
+    return newCustomer.id;
   }
 }
