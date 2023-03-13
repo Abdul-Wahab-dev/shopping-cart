@@ -4,7 +4,7 @@ import { ApolloProvider } from "@apollo/client";
 import { useApollo } from "src/apollo-client";
 import "./asset/style/index.css";
 // import { AuthProvider } from "src/auth/useAuth";
-// import "../styles/index.css";
+import "./asset/style/index.css";
 
 export default function MyApp({ Component, pageProps }: AppProps) {
   const client = useApollo();

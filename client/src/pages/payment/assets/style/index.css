@@ -1,0 +1,16 @@
+.item {
+  border: 1px solid #757575e3;
+  width: 100px;
+  height: 90px;
+  border-radius: 10px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+  color: #757575e3;
+  transform: scale(1);
+  transition: all 0.2s ease;
+}
+.item:hover {
+  transform: scale(1.1);
+}

@@ -1,5 +1,4 @@
 import { useState } from "react";
-import signup from "./asset/style/signup.module.css";
 export default function Signup() {
   const [name, setName] = useState("");
   const [email, setEmail] = useState("");
@@ -10,10 +9,10 @@ export default function Signup() {
   };
   return (
     <div className="flex">
-      <div className={signup.signup}>
+      <div>
         <div>
           {" "}
-          <h3>Sign up</h3>{" "}
+          <h3>Login</h3>{" "}
         </div>
 
         <form>
@@ -31,18 +30,6 @@ export default function Signup() {
             />
           </div>
           <div className="form-group">
-            <label htmlFor="name" className="form-label">
-              Name
-            </label>
-            <input
-              type="text"
-              placeholder="name"
-              name="name"
-              onChange={(e) => setName(e.target.value)}
-              className="form-control"
-            />
-          </div>
-          <div className="form-group">
             <label htmlFor="password" className="form-label">
               Password
             </label>
@@ -55,7 +42,7 @@ export default function Signup() {
             />
           </div>
           <div className="form-group">
-            <button className="btn btn-primary">Register</button>
+            <button className="btn btn-primary">Login</button>
           </div>
         </form>
       </div>
