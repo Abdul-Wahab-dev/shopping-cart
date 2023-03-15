@@ -29,6 +29,7 @@ type Mutation {
   initializePayment(input: PaymentIntentInput!): String!
   login(input: LoginInput!): String!
   registerUser(input: userInput!): User!
+  updateUser(input: userInput!): String!
 }
 
 input PaymentIntentInput {
@@ -84,9 +85,10 @@ input subscriptionInput {
 }
 
 input userInput {
+  customerId: String
   email: String!
   id: Float
   name: String!
-  password: String!
-  role: ROLE!
+  password: String
+  role: ROLE
 }

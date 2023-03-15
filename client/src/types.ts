@@ -42,6 +42,7 @@ export type Mutation = {
   initializePayment: Scalars["String"];
   login: Scalars["String"];
   registerUser: User;
+  updateUser: Scalars["String"];
 };
 
 export type MutationAddUserArgs = {
@@ -73,6 +74,10 @@ export type MutationLoginArgs = {
 };
 
 export type MutationRegisterUserArgs = {
+  input: UserInput;
+};
+
+export type MutationUpdateUserArgs = {
   input: UserInput;
 };
 
@@ -139,9 +144,10 @@ export type SubscriptionInput = {
 };
 
 export type UserInput = {
+  customerId?: InputMaybe<Scalars["String"]>;
   email: Scalars["String"];
   id?: InputMaybe<Scalars["Float"]>;
   name: Scalars["String"];
-  password: Scalars["String"];
-  role: Role;
+  password?: InputMaybe<Scalars["String"]>;
+  role?: InputMaybe<Role>;
 };

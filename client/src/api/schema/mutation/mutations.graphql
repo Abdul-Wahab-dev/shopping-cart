@@ -54,3 +54,6 @@ mutation RegisterUser($input: userInput!) {
     role
   }
 }
+mutation UpdateUser($input: userInput!) {
+  updateUser(input: $input)
+}
