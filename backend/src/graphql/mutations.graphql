@@ -19,8 +19,8 @@ mutation AddUser($input: userInput!) {
 mutation Checkout {
   checkout
 }
-mutation CreateCustomer($email: String!) {
-  createCustomer(email: $email)
+mutation CreateCustomer($email: String!, $name: String!) {
+  createCustomer(email: $email, name: $name)
 }
 mutation CreatePrice($input: priceInput!) {
   createPrice(input: $input)

@@ -3,21 +3,36 @@ import { User } from "./User";
 
 @ObjectType()
 export class Product {
-  @Field(() => Number)
-  id: number;
+  @Field(() => String)
+  id: string;
 
   @Field(() => String)
   name: string;
 
   @Field(() => String)
-  category: string;
-
-  @Field(() => String)
   description: string;
 
-  @Field(() => Number)
-  price: number;
+  @Field(() => [Price])
+  prices: Price[];
+}
 
-  @Field(() => User, { nullable: true })
-  user?: User;
+@ObjectType()
+export class Price {
+  @Field(() => String)
+  id: string;
+
+  @Field(() => String)
+  currency: string;
+
+  @Field(() => String)
+  type: string;
+
+  @Field(() => String)
+  interval: string;
+
+  @Field(() => Number)
+  unit_amount: number;
+
+  @Field(() => String)
+  unit_amount_decimal: string;
 }

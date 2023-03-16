@@ -21,6 +21,16 @@ model User {
   customerId String?
 
 }
+model Product {
+  id        Int         @id @default(autoincrement())
+  name      String
+  productId String
+}
+
+model Price {
+  id      Int            @id @default(autoincrement())
+  priceId String
+}
 enum ROLE {
   USER
   ADMIN
