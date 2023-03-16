@@ -12,9 +12,12 @@ export class userInput {
   @Field(() => String)
   email: string;
 
-  @Field(() => ROLE)
-  role: ROLE;
+  @Field(() => ROLE, { nullable: true })
+  role?: ROLE;
 
-  @Field(() => String)
-  password: string;
+  @Field(() => String, { nullable: true })
+  password?: string;
+
+  @Field(() => String, { nullable: true })
+  customerId?: string;
 }

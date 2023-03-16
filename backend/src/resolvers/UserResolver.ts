@@ -119,8 +119,23 @@ export class UserResolver {
       "HELLO_WORLD",
       {
         expiresIn: 3600,
-      }
+      },
     );
     return token;
+  }
+
+  @Mutation(() => String)
+  async updateUser(@Arg("input") input: userInput): Promise<string> {
+    const updatedCustomer = await prisma.user.update({
+      where: {
+        email: input.email,
+      },
+      data: {
+        customerId: input.customerId,
+        name: input.name,
+      },
+    });
+
+    return updatedCustomer.email;
   }
 }

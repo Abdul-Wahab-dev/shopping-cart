@@ -1,8 +1,26 @@
-import { Resolver, Mutation, Arg, Args } from "type-graphql";
+import { Resolver, Mutation, Arg, Args, Query } from "type-graphql";
 import Stripe from "stripe";
 import { priceInput } from "../inputs/PriceInput";
 import { subscriptionInput } from "../inputs/SubscriptionInput";
 import { PaymentIntentInput } from "../inputs/PaymentIntentInput";
+import { PrismaClient } from "@prisma/client";
+import { ProductResponse } from "../responses/ProductResponse";
+const prisma = new PrismaClient();
+
+type Price = {
+  id: string;
+  currency: string;
+  type: string;
+  unit_amount: number;
+  interval: string;
+  unit_amount_decimal: string;
+};
+interface Plan {
+  id: string;
+  name: string;
+  description: string;
+  prices: Price[];
+}
 type Interval = "day" | "month" | "week" | "year";
 const stripe = new Stripe(
   "sk_test_51Md4qEBP7VrxYAkm6VP0sQHd8fQ0PXFhbD4QTwmJFEBSBRRpkbI7gNJK0LWY1FfHylYiEsojkOPycfgGdKdAXDR000jaCtvkKN",
@@ -54,6 +72,13 @@ export class PaymentResolver {
     const newProduct = await stripe.products.create({
       name,
     });
+
+    await prisma.product.create({
+      data: {
+        name: newProduct.name,
+        productId: newProduct.id,
+      },
+    });
     return newProduct.id;
   }
 
@@ -68,6 +93,12 @@ export class PaymentResolver {
       currency: "usd",
       recurring: {
         interval: input.interval as Interval,
+      },
+    });
+
+    await prisma.price.create({
+      data: {
+        priceId: newPrice.id,
       },
     });
     return newPrice.id;
@@ -94,10 +125,47 @@ export class PaymentResolver {
   }
 
   @Mutation(() => String)
-  async createCustomer(@Arg("email") email: string): Promise<string> {
+  async createCustomer(
+    @Arg("email") email: string,
+    @Arg("name") name: string,
+  ): Promise<string> {
     const newCustomer = await stripe.customers.create({
       email,
+      name,
     });
     return newCustomer.id;
+  }
+
+  @Query(() => ProductResponse)
+  async retriveProducts(): Promise<ProductResponse> {
+    const plans: Plan[] = (
+      await stripe.products.list({ active: true })
+    ).data.map((product) => {
+      return {
+        id: product.id,
+        name: product.name,
+        description: product.description ?? "hello",
+        prices: [],
+      };
+    });
+
+    if (plans) {
+      for (let i = 0; i < plans.length; i++) {
+        plans[i].prices = (
+          await stripe.prices.list({ product: plans[i].id })
+        ).data.map((price) => {
+          return {
+            id: price.id,
+            currency: price.currency,
+            type: price.type,
+            interval: price.recurring.interval,
+            unit_amount: price.unit_amount,
+            unit_amount_decimal: price.unit_amount_decimal,
+          };
+        });
+      }
+    }
+
+    return { total: plans.length, products: plans };
   }
 }

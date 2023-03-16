@@ -22,13 +22,14 @@ input LoginInput {
 type Mutation {
   addUser(input: userInput!): User!
   checkout: String!
-  createCustomer(email: String!): String!
+  createCustomer(email: String!, name: String!): String!
   createPrice(input: priceInput!): String!
   createProduct(name: String!): String!
   createSubscription(input: subscriptionInput!): String!
   initializePayment(input: PaymentIntentInput!): String!
   login(input: LoginInput!): String!
   registerUser(input: userInput!): User!
+  updateUser(input: userInput!): String!
 }
 
 input PaymentIntentInput {
@@ -46,9 +47,31 @@ type Post {
   updatedAt: DateTime!
 }
 
+type Price {
+  currency: String!
+  id: String!
+  interval: String!
+  type: String!
+  unit_amount: Float!
+  unit_amount_decimal: String!
+}
+
+type Product {
+  description: String!
+  id: String!
+  name: String!
+  prices: [Price!]!
+}
+
+type ProductResponse {
+  products: [Product!]!
+  total: Float!
+}
+
 type Query {
   getUsers: UserResponse!
   hello(id: String!, name: String!, price: Float!): Book!
+  retriveProducts: ProductResponse!
 }
 
 enum ROLE {
@@ -84,9 +107,10 @@ input subscriptionInput {
 }
 
 input userInput {
+  customerId: String
   email: String!
   id: Float
   name: String!
-  password: String!
-  role: ROLE!
+  password: String
+  role: ROLE
 }
