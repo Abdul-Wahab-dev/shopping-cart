@@ -29,7 +29,10 @@ mutation CreateProduct($name: String!) {
   createProduct(name: $name)
 }
 mutation CreateSubscription($input: subscriptionInput!) {
-  createSubscription(input: $input)
+  createSubscription(input: $input) {
+    clientSecret
+    subscriptionId
+  }
 }
 mutation InitializePayment($input: PaymentIntentInput!) {
   initializePayment(input: $input)

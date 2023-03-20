@@ -25,7 +25,7 @@ type Mutation {
   createCustomer(email: String!, name: String!): String!
   createPrice(input: priceInput!): String!
   createProduct(name: String!): String!
-  createSubscription(input: subscriptionInput!): String!
+  createSubscription(input: subscriptionInput!): subscription!
   initializePayment(input: PaymentIntentInput!): String!
   login(input: LoginInput!): String!
   registerUser(input: userInput!): User!
@@ -99,6 +99,11 @@ input priceInput {
   currency: String!
   interval: String!
   productId: String!
+}
+
+type subscription {
+  clientSecret: String!
+  subscriptionId: String!
 }
 
 input subscriptionInput {

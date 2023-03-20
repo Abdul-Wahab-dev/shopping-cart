@@ -17,7 +17,6 @@ export default function CheckoutForm() {
         return_url: "http://locathost:3000/payment",
       },
     });
-    console.log(result, "result");
   };
   return (
     <div>

@@ -4,6 +4,7 @@ import { priceInput } from "../inputs/PriceInput";
 import { subscriptionInput } from "../inputs/SubscriptionInput";
 import { PaymentIntentInput } from "../inputs/PaymentIntentInput";
 import { PrismaClient } from "@prisma/client";
+import { subscription } from "../responses/SubscriptionResponse";
 import { ProductResponse } from "../responses/ProductResponse";
 const prisma = new PrismaClient();
 
@@ -104,24 +105,27 @@ export class PaymentResolver {
     return newPrice.id;
   }
 
-  @Mutation(() => String)
+  @Mutation(() => subscription)
   async createSubscription(
     @Arg("input") input: subscriptionInput,
-  ): Promise<string> {
+  ): Promise<subscription> {
     const newSubscription = await stripe.subscriptions.create({
       customer: input.customerId,
-      payment_behavior: "default_incomplete",
-      payment_settings: {
-        save_default_payment_method: "on_subscription",
-      },
       items: [
         {
           price: input.priceId,
         },
       ],
+      payment_behavior: "default_incomplete",
+      payment_settings: { save_default_payment_method: "on_subscription" },
+      expand: ["latest_invoice.payment_intent"],
     });
-
-    return "";
+    const invoice = newSubscription.latest_invoice as Stripe.Invoice;
+    const intent = invoice.payment_intent as Stripe.PaymentIntent;
+    return {
+      subscriptionId: newSubscription.id,
+      clientSecret: intent.client_secret,
+    };
   }
 
   @Mutation(() => String)

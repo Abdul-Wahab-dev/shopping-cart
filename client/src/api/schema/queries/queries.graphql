@@ -26,3 +26,21 @@ query Hello($id: String!, $name: String!, $price: Float!) {
     price
   }
 }
+query RetriveProducts {
+  retriveProducts {
+    products {
+      description
+      id
+      name
+      prices {
+        currency
+        id
+        interval
+        type
+        unit_amount
+        unit_amount_decimal
+      }
+    }
+    total
+  }
+}

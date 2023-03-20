@@ -1,0 +1,25 @@
+.item {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 10px;
+  width: 150px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 10px;
+  text-transform: capitalize;
+}
+ul {
+  list-style: none;
+  display: flex;
+  gap: 10px;
+}
+ul li {
+  padding: 10px;
+  border-radius: 10px;
+}
+ul li.active {
+  background-color: rgb(72, 72, 255);
+  color: white;
+}
