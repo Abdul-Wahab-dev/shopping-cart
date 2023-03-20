@@ -30,6 +30,10 @@
   gap: 20px;
 }
 
+.dir-col {
+  flex-direction: column;
+}
+
 .form-group {
   margin-bottom: 10px;
   display: block;

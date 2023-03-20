@@ -34,6 +34,7 @@ export type CheckoutMutation = { __typename?: "Mutation"; checkout: string };
 
 export type CreateCustomerMutationVariables = Types.Exact<{
   email: Types.Scalars["String"];
+  name: Types.Scalars["String"];
 }>;
 
 export type CreateCustomerMutation = {
@@ -65,7 +66,11 @@ export type CreateSubscriptionMutationVariables = Types.Exact<{
 
 export type CreateSubscriptionMutation = {
   __typename?: "Mutation";
-  createSubscription: string;
+  createSubscription: {
+    __typename?: "subscription";
+    clientSecret: string;
+    subscriptionId: string;
+  };
 };
 
 export type InitializePaymentMutationVariables = Types.Exact<{
@@ -221,8 +226,8 @@ export type CheckoutMutationOptions = Apollo.BaseMutationOptions<
   CheckoutMutationVariables
 >;
 export const CreateCustomerDocument = gql`
-  mutation CreateCustomer($email: String!) {
-    createCustomer(email: $email)
+  mutation CreateCustomer($email: String!, $name: String!) {
+    createCustomer(email: $email, name: $name)
   }
 `;
 export type CreateCustomerMutationFn = Apollo.MutationFunction<
@@ -244,6 +249,7 @@ export type CreateCustomerMutationFn = Apollo.MutationFunction<
  * const [createCustomerMutation, { data, loading, error }] = useCreateCustomerMutation({
  *   variables: {
  *      email: // value for 'email'
+ *      name: // value for 'name'
  *   },
  * });
  */
@@ -366,7 +372,10 @@ export type CreateProductMutationOptions = Apollo.BaseMutationOptions<
 >;
 export const CreateSubscriptionDocument = gql`
   mutation CreateSubscription($input: subscriptionInput!) {
-    createSubscription(input: $input)
+    createSubscription(input: $input) {
+      clientSecret
+      subscriptionId
+    }
   }
 `;
 export type CreateSubscriptionMutationFn = Apollo.MutationFunction<
