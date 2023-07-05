@@ -24,7 +24,7 @@ interface Plan {
 }
 type Interval = "day" | "month" | "week" | "year";
 const stripe = new Stripe(
-  "sk_test_51Md4qEBP7VrxYAkm6VP0sQHd8fQ0PXFhbD4QTwmJFEBSBRRpkbI7gNJK0LWY1FfHylYiEsojkOPycfgGdKdAXDR000jaCtvkKN",
+  "",
   {
     apiVersion: "2022-11-15",
   },
